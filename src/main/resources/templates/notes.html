@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <link th:href="@{/css/notes.css}" rel="stylesheet" />
+    <link rel="icon" th:href="@{/css/wIcon.png}" type="image/icon type">
+    <a href="https://www.flaticon.com/free-icons/paper" title="paper icons"></a>
+</head>
+<body>
+
+<div id="nav">
+    <ul>
+        <li class="menu"><a th:href="@{/Logged/Notes/GetToDisplayingNotes}">Display Notes</a></li>
+        <li class="menu"><a th:href="@{/Logged/Notes/GetToAddingNewNote}">Add Note</a></li>
+        <li class="menu"><a th:href="@{/Logged/Categories/GetToDisplayingCategories}">Display Categories</a></li>
+        <li class="menu"><a th:href="@{/Logged/Categories/AddCategory}">Add Category</a></li>
+        <li class="menu"><a th:href="@{/Logged/Notes/ShowSharedNotes}" >Shared Notes</a></li>
+        <li class="menu"><a sec:authorize="hasAuthority('admin')" th:href="@{/Logged/AdminPanel}">Admin Panel</a></li>
+        <li id="logoutForm">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" id="logoutButton">Logout</button>
+            </form>
+        </li>
+        <li id="timer">5:00</li>
+    </ul>
+</div>
+
+
+<div id="rectangle">
+    <div id="options">
+        <div id="filterByCategory">
+            <form th:action="@{/Logged/Notes/FilterByCategory}" method="post">
+                <h2>Filter by Category</h2>
+                <select id="category" name="category">
+                    <option value="">All</option>
+                    <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                </select><br>
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+
+        <div id="sortBy">
+            <form th:action="@{/Logged/Notes/DisplayNotes}" method="post">
+                <h2>Sort By</h2>
+                <select id="sortOrder" name="sortOrder">
+                    <option value="ASC_Name" th:selected="${sortOrder == 'ASC_Name'}">Name ASC</option>
+                    <option value="DESC_Name" th:selected="${sortOrder == 'DESC_Name'}">Name DESC</option>
+                    <option value="ASC_Category" th:selected="${sortOrder == 'ASC_Category'}">Category ASC</option>
+                    <option value="DESC_Category" th:selected="${sortOrder == 'DESC_Category'}">Category DESC</option>
+                    <option value="ASC_CreationDate" th:selected="${sortOrder == 'ASC_CreationDate'}">CreationDate ASC</option>
+                    <option value="DESC_CreationDate" th:selected="${sortOrder == 'DESC_CreationDate'}">CreationDate DESC</option>
+                </select><br>
+                <button type="submit">Sort</button>
+            </form>
+        </div>
+
+        <div id="filterByDate">
+            <form th:action="@{/Logged/Notes/FilterByDate}" method="post">
+                <h2>Filter by Date</h2>
+                <label for="startDate">Start Date</label><br>
+                <input type="text" id="startDate" name="startDate" placeholder="dd-mm-yyyy" /><br/>
+                <label for="endDate">End Date </label><br>
+                <input type="text" id="endDate" name="endDate" placeholder="dd-mm-yyyy" /><br/>
+                <p th:text="${errorDate}"></p>
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+    </div>
+
+    <div th:if="${isDateInvalid}">Invalid date format. Please enter a date in the format dd-mm-yyyy.</div>
+
+    <div id="notesContent">
+        <div id="notesFromDatabase">
+            <h1>Your notes</h1>
+            <ol id="notes" th:each="note, state : ${notes}">
+
+                <div class="list">
+                    <li class="noteDet" th:text="${note.categoriesByCategoryId.getCategoryName()}"></li>
+                    <li class="noteDet" th:text="'Title: ' + ${note.title}"></li>
+                    <li class="noteDet" th:text="'Content: ' + ${note.content}"></li>
+                    <li class="noteDet" th:text="'Note link: ' + ${note.noteLink}"></li>
+                    <li class="noteDet" th:text="'Creation Data: ' + ${note.creationDate}"></li>
+                    <a class="editDelete" th:href="@{'/Logged/Notes/GetToDeletingNote/' + ${note.noteId}}">Delete</a>
+                    <a class="editDelete" th:href="@{'/Logged/Notes/GetToEditingNote/' + ${note.noteId}}">Edit</a>
+                    <a class="editDelete" th:href="@{'/Logged/Notes/GetToSharingNote/' + ${note.noteId}}">Share</a>
+
+                </div>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<script>
+    function startTimer() {
+        var duration = 5 * 60; // Czas w sekundach (30 minut * 60 sekund)
+        var display = document.getElementById("timer");
+
+        var timer = setInterval(function () {
+            var minutes = parseInt(duration / 60, 10);
+            var seconds = parseInt(duration % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--duration < 0) {
+                clearInterval(timer);
+                display.textContent = "Minutnik zakończony";
+            }
+        }, 1000); // Odliczanie co 1 sekundę (1000 milisekund)
+    }
+
+    startTimer();
+</script>
+</body>
+</html>

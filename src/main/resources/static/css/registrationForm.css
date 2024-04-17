@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins" , sans-serif;
+}
+
+body{
+    background-color: #fefdfd;
+    font-size: 24px;
+    height: 100vh;
+}
+
+#rectangle{
+    position: absolute;
+    width: 43vw;
+    height: 100vh;
+    padding: 8px 8px 8px 8px;
+    background: #FFFFFF;
+    text-align: center;
+}
+
+#rectangle2{
+    position: absolute;
+    width: 55vw;
+    height: 100vh;
+    padding: 8px 8px 8px 8px;
+    top:0;
+    left:43vw;
+    right: 0;
+    text-align: center;
+    background-image: url(writer.jpg);
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+h1 {
+    position: relative;
+    text-shadow: 0 4px 5px rgba(0, 0, 0, 0.28);
+    color: #000000;
+    font-weight: 700;
+    font-size: 5.56vh;
+    text-align: center;
+    margin-top: 10vh;
+}
+
+#getStarted{
+    position: relative;
+    text-shadow: 0 4px 5px rgba(0, 0, 0, 0.28);
+    color: #000000;
+    font-weight: normal;
+    font-size: 3vh;
+    text-align: center;
+}
+
+#createAcc
+{
+    text-shadow: 0 4px 5px rgba(0, 0, 0, 0.28);
+    color: #191919;
+    font-weight: bold;
+    font-size: 3.89vh;
+    text-align: center;
+    position: relative;
+    top: -0.5vh;
+}
+
+#signInBtn, #signUpBtn {
+    width: 12.5vw;
+    height: 6.85vh;
+    padding: 0 10px 0 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+    background: #267b7f;
+    color: #fefdfd;
+    border-color: #005a14;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 40px 40px 40px 40px;
+    font-weight: bold;
+    font-size: 2.78vh;
+    outline: none;
+}
+
+#signInBtn{
+    margin-top: 0.5vh;
+}
+#signUpBtn{
+    margin-top: 4vh;
+}
+
+#signInBtn:hover, #signUpBtn:hover {
+    cursor: pointer;
+    background: #2f74d7;
+}
+
+#userData{
+    margin-top: 1.5vh;
+    text-align: center;
+}
+
+.form-control{
+    position: relative;
+    width: 23.91vw;
+    height: 4vh;
+    padding: 0 8px 0 16px;
+    background: #ffffff;
+    color: #989c9e;
+    border-color: #000000;
+    font-weight: 400;
+    font-size: 2.22vh;
+    line-height: normal;
+    text-align: left;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.form-control::placeholder{
+    color: #989c9e;
+}
+
+.form-control:hover::placeholder{
+    color: #050505;
+}
+
+.form-control:focus,
+.form-control:valid{
+    border-color: #267b7f;
+    transition: all 0.3s ease;
+    color: #101718;
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+input:focus:hover::placeholder {
+    color: transparent;
+}
+
+p{
+    text-shadow: 0 4px 5px rgba(0, 0, 0, 0.28);
+    color: #191919;
+    font-weight: normal;
+    font-size: 2.77vh;
+    text-align: center;
+    position: relative;
+    top: -0.5vh;
+}
+
+span{
+    font-size: 2vh;
+}
+
+label{
+    font-size: 2vh;
+    line-height: normal;
+}
+
+#link{
+    position: relative;
+    height: 4vh;
+    margin-top: 72vh;
+    text-align: center;
+}
+
+a{
+    color: black;
+    font-size: 10px;
+    text-decoration: none;
+    line-height: normal;
+}
+
+a:visited{
+    color: black;
+}

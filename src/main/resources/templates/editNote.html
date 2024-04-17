@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Note</title>
+    <link th:href="@{/css/editNote.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="editNote.css">
+    <link rel="icon" href="wIcon.png" type="image/icon type">
+    <a href="https://www.flaticon.com/free-icons/paper" title="paper icons"></a>
+</head>
+<body>
+
+<div id="nav">
+    <ul>
+        <li class="menu"><a th:href="@{/Logged/Notes/GetToDisplayingNotes}">Display Notes</a></li>
+        <li class="menu"><a th:href="@{/Logged/Notes/GetToAddingNewNote}">Add Note</a></li>
+        <li class="menu"><a th:href="@{/Logged/Categories/GetToDisplayingCategories}">Display Categories</a></li>
+        <li class="menu"><a th:href="@{/Logged/Categories/AddCategory}">Add Category</a></li>
+        <li class="menu"><a th:href="@{/Logged/Notes/ShowSharedNotes}" >Shared Notes</a></li>
+        <li class="menu"><a sec:authorize="hasAuthority('admin')" th:href="@{/Logged/AdminPanel}">Admin Panel</a></li>
+        <li id="logoutForm">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" id="logoutButton">Logout</button>
+            </form>
+        </li>
+        <li id="timer">5:00</li>
+    </ul>
+</div>
+
+<div id="rectangle" th:object="${note}">
+    <div id="box" class="box1">
+        <h2>Note Details</h2>
+        <ul id="noteDetailsUl">
+            <li class="noteData" th:text="'Note Category: ' + ${note.categoriesByCategoryId.getCategoryName()}">Category</li>
+            <li class="noteData" th:text="'Title: ' + ${note.title}">Title</li>
+            <li class="noteData" th:text="'Content: ' + ${note.content}">Content</li>
+            <li class="noteData" th:text="'Note Link: ' + ${note.noteLink}">Link</li>
+            <li class="noteData" th:text="'Creation Date: ' + ${note.creationDate}">Data</li>
+        </ul>
+    </div>
+
+
+
+    <form th:object="${editedNote}"  th:action="@{/Logged/Notes/EditNote}" method="post">
+
+        <div id="editNoteData" class="box1">
+
+            <h2>Edit Note</h2>
+
+            <div class="form-group">
+                <label for="titleCheckbox">Note Title</label>
+                <input type="checkbox" id="titleCheckbox" onclick="toggleTitleInput()" />
+
+                <div id="titleInputContainer" style="display: none;">
+                    <label for="title">Title</label><br>
+                    <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Note Title"/>
+                </div>
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="contentCheckbox">Note Content</label>
+                <input type="checkbox" id="contentCheckbox" onclick="toggleContentInput()" />
+
+                <div id="contentInputContainer" style="display: none;">
+                    <label for="content">Content</label><br>
+                    <textarea id="content" th:field="*{content}" placeholder="Note Content"></textarea>
+                </div>
+                <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="noteLinkCheckbox">Note Link</label>
+                <input type="checkbox" id="noteLinkCheckbox" onclick="toggleNoteLinkInput()" />
+
+                <div id="noteLinkInputContainer" style="display: none;">
+                    <label for="noteLink">Note Link</label><br>
+                    <input type="text" class="form-control" id="noteLink" th:field="*{noteLink}" placeholder="Note Link"/>
+                </div>
+                <span th:if="${#fields.hasErrors('noteLink')}" th:errors="*{noteLink}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryNameCheckbox">Note Category</label>
+                <input type="checkbox" id="categoryNameCheckbox" onclick="toggleCategoryNameInput()" />
+
+                <div id="categoryNameInputContainer" style="display: none;">
+                    <select id="categoryName" th:field="*{categoryName}">
+                        <option th:each="category : ${categoriesData.getCategoriesNames()}" th:value="${category}" th:text="${category}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <input type="hidden" id="noteIndex" name="noteIndex" th:object="${noteIndex}" th:field="*{value}" th:value="${noteIndex.value}" />
+
+
+            <button type="submit" id="editNote">Edit Note</button>
+        </div>
+    </form>
+</div>
+
+<div id="rectangle2">
+    <div id="link">
+        <a class="imgLink" href="https://www.freepik.com/free-vector/online-document-form-digital-agreement-electronic-contract-internet-questionnaire-list-note-voting-ballot-poll-flat-design-element_12083135.htm#query=edit%20note%20illustration&position=10&from_view=search&track=ais">Image by vectorjuice on Freepik</a>
+    </div>
+</div>
+
+<script>
+    var titleCheckbox = document.getElementById("titleCheckbox");
+    var titleInputContainer = document.getElementById("titleInputContainer");
+    var titleInput = document.getElementById("title");
+
+    var contentCheckbox = document.getElementById("contentCheckbox");
+    var contentInputContainer = document.getElementById("contentInputContainer");
+    var contentInput = document.getElementById("content");
+
+    var noteLinkCheckbox = document.getElementById("noteLinkCheckbox");
+    var noteLinkInputContainer = document.getElementById("noteLinkInputContainer");
+    var noteLinkInput = document.getElementById("noteLink");
+
+    var categoryNameCheckbox = document.getElementById("categoryNameCheckbox");
+    var categoryNameInputContainer = document.getElementById("categoryNameInputContainer");
+    var categoryNameInput = document.getElementById("categoryName");
+
+    function toggleTitleInput() {
+        if (titleCheckbox.checked) {
+            titleInputContainer.style.display = "block";
+            titleInput.setAttribute("required", "required");
+        } else {
+            titleInputContainer.style.display = "none";
+            titleInput.removeAttribute("required");
+        }
+    }
+
+    function toggleContentInput() {
+        if (contentCheckbox.checked) {
+            contentInputContainer.style.display = "block";
+            contentInput.setAttribute("required", "required");
+        } else {
+            contentInputContainer.style.display = "none";
+            contentInput.removeAttribute("required");
+        }
+    }
+
+    function toggleNoteLinkInput() {
+        if (noteLinkCheckbox.checked) {
+            noteLinkInputContainer.style.display = "block";
+            noteLinkInput.setAttribute("required", "required");
+        } else {
+            noteLinkInputContainer.style.display = "none";
+            noteLinkInput.removeAttribute("required");
+        }
+    }
+
+    function toggleCategoryNameInput() {
+        if (categoryNameCheckbox.checked) {
+            categoryNameInputContainer.style.display = "block";
+            categoryNameInput.setAttribute("required", "required");
+        } else {
+            categoryNameInputContainer.style.display = "none";
+            categoryNameInput.removeAttribute("required");
+        }
+    }
+</script>
+
+<script>
+    function startTimer() {
+        var duration = 5 * 60; // Czas w sekundach (30 minut * 60 sekund)
+        var display = document.getElementById("timer");
+
+        var timer = setInterval(function () {
+            var minutes = parseInt(duration / 60, 10);
+            var seconds = parseInt(duration % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--duration < 0) {
+                clearInterval(timer);
+                display.textContent = "Minutnik zakończony";
+            }
+        }, 1000); // Odliczanie co 1 sekundę (1000 milisekund)
+    }
+
+    startTimer();
+</script>
+
+</body>
+</html>
+

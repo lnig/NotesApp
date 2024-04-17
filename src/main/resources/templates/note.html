@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <meta charset="UTF-8">
+  <title>Note</title>
+  <link th:href="@{/css/note.css}" rel="stylesheet" />
+  <link rel="icon" href="wIcon.png" type="image/icon type">
+  <a href="https://www.flaticon.com/free-icons/paper" title="paper icons"></a>
+</head>
+<body>
+<h1>Note: </h1>
+<div id="noteData">
+  <li th:text="${note.categoriesByCategoryId.getCategoryName()}"></li>
+  <li th:text="'Title: ' + ${note.title}"></li>
+  <li th:text="'Content: ' + ${note.content}"></li>
+  <li th:text="'Note link: ' + ${note.noteLink}"></li>
+  <li th:text="'Creation Data: ' + ${note.creationDate}"></li>
+</div>
+</body>
+</html>

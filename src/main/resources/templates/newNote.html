@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Note</title>
+    <link th:href="@{/css/newNote.css}" rel="stylesheet" />
+    <link rel="icon" href="wIcon.png" type="image/icon type">
+    <a href="https://www.flaticon.com/free-icons/paper" title="paper icons"></a>
+</head>
+<body>
+
+<div id="nav">
+    <ul>
+        <li class="menu"><a th:href="@{/Logged/Notes/GetToDisplayingNotes}">Display Notes</a></li>
+        <li class="menu"><a th:href="@{/Logged/Notes/GetToAddingNewNote}">Add Note</a></li>
+        <li class="menu"><a th:href="@{/Logged/Categories/GetToDisplayingCategories}">Display Categories</a></li>
+        <li class="menu"><a th:href="@{/Logged/Categories/AddCategory}">Add Category</a></li>
+        <li class="menu"><a th:href="@{/Logged/Notes/ShowSharedNotes}" >Shared Notes</a></li>
+        <li class="menu"><a sec:authorize="hasAuthority('admin')" th:href="@{/Logged/AdminPanel}">Admin Panel</a></li>
+        <li id="logoutForm">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" id="logoutButton">Logout</button>
+            </form>
+        </li>
+        <li id="timer">5:00</li>
+    </ul>
+</div>
+
+
+
+<form th:object="${note}" th:action="@{/Logged/Notes/AddNote}" method="post">
+    <div id = "rectangle">
+
+        <h2 id="addNoteText">Add New Note</h2>
+
+        <div id="noteData">
+
+            <div class="form-group">
+                <label for="title">Title</label><br>
+                <input type="text" id="title" class="form-control" th:field="*{title}" placeholder="Note Title" required/><br>
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Content</label><br>
+                <textarea id="content" th:field="*{content}" placeholder="Note Content" required></textarea><br>
+                <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="generateLink">Generate link </label>
+                <input type="checkbox" id="generateLink" onclick="toggleLinkInput()" />
+
+                <div id="linkInputContainer" style="display: none;">
+                    <label for="noteLink">Note Link</label><br>
+                    <input type="text" class="form-control" id="noteLink" th:field="*{noteLink}" placeholder="Note Link" /><br>
+                    <span th:if="${#fields.hasErrors('noteLink')}" th:errors="*{noteLink}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category </label>
+                <select id="category" th:field="*{categoryName}">
+                    <option th:each="category : ${categoriesData.getCategoriesNames()}" th:value="${category}" th:text="${category}"></option>
+                </select>
+            </div>
+
+            <button type="submit" id="addNote">Add Note</button>
+        </div>
+    </div>
+</form>
+
+<div id="rectangle2">
+    <div id="link">
+        <a class="imgLink" href="https://www.freepik.com/free-vector/add-notes-concept-illustration_8887086.htm#query=notes%20illustration&position=22&from_view=search&track=ais">Image by storyset on Freepik</a>
+    </div>
+</div>
+<script>
+    var generateLinkCheckbox = document.getElementById("generateLink");
+    var noteLinkInput = document.getElementById("noteLink");
+
+    function toggleLinkInput() {
+        var linkInputContainer = document.getElementById("linkInputContainer");
+        if (generateLinkCheckbox.checked) {
+            linkInputContainer.style.display = "block";
+            noteLinkInput.setAttribute("required", "required");
+        } else {
+            linkInputContainer.style.display = "none";
+            noteLinkInput.removeAttribute("required");
+        }
+    }
+</script>
+
+<script>
+    function startTimer() {
+        var duration = 5 * 60; // Czas w sekundach (30 minut * 60 sekund)
+        var display = document.getElementById("timer");
+
+        var timer = setInterval(function () {
+            var minutes = parseInt(duration / 60, 10);
+            var seconds = parseInt(duration % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--duration < 0) {
+                clearInterval(timer);
+                display.textContent = "Minutnik zakończony";
+            }
+        }, 1000); // Odliczanie co 1 sekundę (1000 milisekund)
+    }
+
+    startTimer();
+</script>
+
+</body>
+</html>

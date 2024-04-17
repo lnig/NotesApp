@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Change User's Role</title>
+    <link th:href="@{/css/changeRole.css}" rel="stylesheet" />
+    <link rel="icon" href="/css/wIcon.png" type="image/icon type">
+    <link href="changeRole.css" rel="stylesheet">
+</head>
+<body>
+
+    <div id="nav">
+        <ul>
+            <li class="menu"><a th:href="@{/Logged/Notes/GetToDisplayingNotes}">Display Notes</a></li>
+            <li class="menu"><a th:href="@{/Logged/Notes/GetToAddingNewNote}">Add Note</a></li>
+            <li class="menu"><a th:href="@{/Logged/Categories/GetToDisplayingCategories}">Display Categories</a></li>
+            <li class="menu"><a th:href="@{/Logged/Categories/AddCategory}">Add Category</a></li>
+            <li class="menu"><a th:href="@{/Logged/Notes/ShowSharedNotes}" >Shared Notes</a></li>
+            <li class="menu"><a sec:authorize="hasAuthority('admin')" th:href="@{/Logged/AdminPanel}">Admin Panel</a></li>
+            <li id="logoutForm">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" id="logoutButton">Logout</button>
+                </form>
+            </li>
+            <li id="timer">5:00</li>
+        </ul>
+    </div>
+    <form th:object="${user}" th:action="@{/Logged/AdminPanel/change-role}" method="post">
+
+    <div id="rectangle">
+        <h1>User:</h1>
+        <li th:text="'First Name: ' + ${user.firstName}">s</li>
+        <li th:text="'Last Name: ' + ${user.lastName}">s</li>
+        <li th:text="'Username: ' + ${user.login}">s</li>
+        <li th:text="'Role: ' + ${user.getAuthoritiesByAuthorityId().getAuthorityName()}">s</li>
+
+        <div class="form-group">
+            <label for="role">Role </label>
+            <select id="role" name="role">
+                <option th:each="authority : ${authorities}" th:value="${authority.authorityId}" th:text="${authority.authorityName}"></option>
+            </select>
+        </div>
+        <input type="hidden" id="userId" name="userId" th:value="${user.userId}" /><br><br>
+        <button type="submit" id="changeRoleBtn">Change Role</button>
+    </div>
+</form>
+
+    <script>
+        function startTimer() {
+            var duration = 5 * 60; // Czas w sekundach (30 minut * 60 sekund)
+            var display = document.getElementById("timer");
+
+            var timer = setInterval(function () {
+                var minutes = parseInt(duration / 60, 10);
+                var seconds = parseInt(duration % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--duration < 0) {
+                    clearInterval(timer);
+                    display.textContent = "Minutnik zakończony";
+                }
+            }, 1000); // Odliczanie co 1 sekundę (1000 milisekund)
+        }
+
+        startTimer();
+    </script>
+
+</body>
+</html>

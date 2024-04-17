@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins" , sans-serif;
+}
+
+body{
+    width: 100%;
+}
+
+#nav {
+    position: absolute;
+    font-size: 24px;
+    color: #fff;
+    margin:auto;
+    background-color: transparent;
+    padding: 5px;
+    height: 9vh;
+    width: 98vw;
+    top: 0;
+    border-color: #000;
+    text-align: center;
+}
+
+#nav ul {
+    list-style: none;
+    text-align: center;
+    display: block;
+    padding: 0px;
+    margin: 0 auto;
+}
+#nav ul li {
+    list-style-type: none;
+    text-align: center;
+    margin: 0px;
+    display: inline-block;
+}
+#nav ul li a {
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    font-weight: 600;
+    display: block;
+    padding: 0.5vh 1vw;
+    margin: 0px;
+}
+.menu:hover {
+    color: #141722;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    margin: -1vh 0;
+    padding: -1vh 0;
+}
+
+#logoutButton{
+    width: 10vw;
+    height: 4.5vh;
+    padding: 0 10px 0 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+    background: #267b7f;
+    color: #fefdfd;
+    border-color: #005a14;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 40px 40px 40px 40px;
+    font-weight: bold;
+    font-size: 2.4vh;
+    outline: none;
+}
+
+#logoutButton:hover{
+    cursor: pointer;
+    background: #2f74d7;
+}
+
+#logoutForm{
+    border: none #FFFFFF;
+}
+
+#timer{
+    margin-left: 2vw;
+    color: #000000;
+}
+
+#rectangle{
+    position: absolute;
+    width: 53vw;
+    height: 91vh;
+    top: 9vh;
+    left: 45vw;
+    background: #FFFFFF;
+    text-align: center;
+}
+
+#rectangle2{
+    position: absolute;
+    width: 45vw;
+    height: 91vh;
+    top: 9vh;
+    right: 0;
+    left: 0;
+    text-align: center;
+    background-image: url(wCategories.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+h1{
+    text-shadow: 0 4px 5px rgba(0, 0, 0, 0.28);
+    color: #000000;
+    font-weight: 700;
+    font-size: 4vh;
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 4vh;
+}
+
+h2{
+    text-shadow: 0 4px 5px rgba(0, 0, 0, 0.28);
+    color: #000000;
+    font-weight: 700;
+    font-size: 2vh;
+    text-align: center;
+}
+
+.editDelete{
+    color: #000;
+    font-size: 2vh;
+    padding: 0 0.5vw 0 0.5vw;
+    text-decoration: none;
+}
+
+.editDelete:hover{
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+#link{
+    position: relative;
+    height: 4vh;
+    margin-top: 85vh;
+    text-align: center;
+}
+
+.imgLink{
+    color: black;
+    font-size: 10px;
+    text-decoration: none;
+    line-height: normal;
+}
+
+.imgLink:visited{
+    color: black;
+}
+
+#categories{
+    display: -o-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#catName::before{
+    color: rgb(21, 138, 31);
+    content: '✉';
+    margin-right: 4px;
+}
+
+#catName{
+    font-size: 3vh;
+    font-weight: 500;
+}
+
+.list{
+    font-size: 2vh;
+    flex: 1 0 15vw;
+    margin-bottom: 2vh;
+}
+
+#cannotDeleteCategory{
+    font-size: 3vh;
+    font-weight: 500;
+}

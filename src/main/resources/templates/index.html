@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+    <link rel="icon" href="/css/wIcon.png" type="image/icon type">
+    <a href="https://www.flaticon.com/free-icons/paper" title="paper icons"></a>
+</head>
+<body>
+<form th:action="@{/Login/LoginForm}" th:object="${login}" method="post">
+
+    <div id="rectangle">
+        <div id="allData">
+
+            <h1>Welcome to Notes App!</h1>
+            <h2 id="loginBack">Log in to your account</h2>
+
+            <div id="userData">
+                <div class="form-group">
+                    <label for="username">Username</label><br>
+                    <input id="username" type="text" class="form-control" th:field="*{username}" placeholder="Username" required><br>
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label><br>
+                    <input id="password" type="password" class="form-control" th:field="*{password}" placeholder="Password" required><br>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="rememberMe" value="Remember Me" name="RememberMe">
+                    <label>Remember Me</label>
+                </div>
+
+                <div>
+                    <button type="submit" id="signInBtn">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div id="rectangle2">
+    <div id="link">
+        <a href="https://www.freepik.com/free-vector/professional-writer-online-service-platform-author-writing-script-novel-bestseller-publishing-online-notes-flat-vector-illustration_27037372.htm#query=edit%20note%20illustration&position=9&from_view=search&track=ais">Image by vector4stock on Freepik</a>
+    </div>
+    <h2 id="notAMember">Not a member? Register here</h2>
+    <p> We Are Happy To See You</p>
+    <button onclick="location.href = 'http://localhost:8080/YourNotesApp/Login/GetToRegistration';" type="button" id="signUpBtn">Sign Up</button>
+</div>
+
+</body>
+</html>

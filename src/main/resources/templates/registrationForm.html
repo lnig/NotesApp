@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link th:href="@{/css/registrationForm.css}" rel="stylesheet" />
+  <link rel="icon" href="/css/wIcon.png" type="image/icon type">
+  <a href="https://www.flaticon.com/free-icons/paper" title="paper icons"></a>
+</head>
+<body>
+
+<form th:action="@{/Login/RegistrationForm}" th:object="${user}" method="post">
+  <div id = rectangle>
+
+    <h1>Create Account</h1>
+    <h2 id="getStarted">Get started by creating your new account</h2>
+
+    <div id="userData">
+
+      <div class="form-group">
+        <label for="firstName">First Name</label><br>
+        <input placeholder="First Name" type="text" id="firstName" class="form-control" th:field="*{firstName}" required/><br>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label><br>
+        <input placeholder="Last Name" type="text" id="lastName" class="form-control" th:field="*{lastName}" required/><br>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="login">Login</label><br>
+        <input placeholder="Login" type="text" id="login" class="form-control" th:field="*{username}" required/><br>
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label><br>
+        <input placeholder="Password" type="password" id="password" class="form-control" th:field="*{password}" required/><br>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age</label><br>
+        <input  type="number" id="age" class="form-control" th:field="*{age}" required/><br>
+        <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="signUpBtn">Sign Up</button>
+    </div>
+  </div>
+
+</form>
+
+<div id="rectangle2">
+  <div id="link">
+    <a href="https://www.freepik.com/free-vector/professional-writer-online-service-platform-author-writing-script-novel-bestseller-publishing-online-notes-flat-vector-illustration_27037372.htm#query=edit%20note%20illustration&position=9&from_view=search&track=ais">Image by vector4stock on Freepik</a>
+  </div>
+  <h2 id="createAcc">Already Have An Account?</h2>
+  <p> We Are Happy To Have You Back</p>
+  <button onclick="window.location.href = 'http://localhost:8080/YourNotesApp/Login/LoginForm';" type="button" id="signInBtn">Sign In</button>
+</div>
+
+
+
+</body>
+</html>
